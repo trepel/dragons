@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Dragon Show</title>
+    </h:head>
+    
+    <h:body>
+        <h:outputStylesheet library="css" name="layout.css" target="head"/>
+        <div id="container">
+            <div id="top">
+                <div id="flag">FLAG</div>
+                <table>
+                    <tr>
+                        <td>
+                            LOGO
+                        </td>
+                        <td>
+                            <h1><h:outputText value="#{msg['top.name']}" /></h1>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="leftnav">
+                <h:form>
+                <h:outputText value="Dragons" />
+                    <p>
+                        <ul>
+                            <li>
+                                <h:commandLink action="#{dragonListBean.getDragons}" value="Dragons" >
+                                </h:commandLink>
+                            </li>
+                            <li>
+                                <h:commandLink action="#{dragonListBean.addNewDragon}" value="#{msg['dragons.add.button']}">
+                                </h:commandLink>
+                            </li>
+                            <li>...</li>
+                        </ul>
+                    </p>
+               
+                </h:form>
+            </div>
+            <div id="content">
+                <ui:insert name="content" />
+            </div>
+            <div id="footer">
+                FOOTER
+            </div>
+        </div>
+ 
+    </h:body>
+    
+</html>

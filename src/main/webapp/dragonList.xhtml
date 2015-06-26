@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  <ui:composition template="/template.xhtml">
+       
+        <ui:define name="content">
+        
+            <h:commandButton actionListener="#{dragonListBean.showAllDragons}" value="#{msg['dragons.filter.all']}">
+                <f:ajax render="dragonTable"  />
+            </h:commandButton>
+            
+            <h:commandButton actionListener="#{dragonListBean.showDragonsWithAge}" value="#{msg['dragons.filter.age']}">
+                <f:ajax render="dragonTable"  />
+            </h:commandButton>
+            
+            <h:dataTable id="dragonTable" value="#{dragonListBean.dragonList}" var="b">
+                  <h:column>
+                      <f:facet name="header" >
+                          <h:outputText value="#{msg['dragons.list.name']}" />
+                      </f:facet>    
+                      <h:outputText value="#{b.name}"/>
+                  </h:column>
+                  <h:column>
+                      <f:facet name="header" >
+                          <h:outputText value="#{msg['dragons.list.age']}"/>
+                      </f:facet>    
+                      <h:outputText value="#{b.age}"/>
+                  </h:column>
+              </h:dataTable>
+
+        </ui:define>
+
+  </ui:composition>
+</html>

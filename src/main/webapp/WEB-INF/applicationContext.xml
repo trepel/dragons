@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:faces="http://www.springframework.org/schema/faces"
+    xmlns:int-security="http://www.springframework.org/schema/integration/security"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:sec="http://www.springframework.org/schema/security"
+    xsi:schemaLocation="http://www.springframework.org/schema/integration/security http://www.springframework.org/schema/integration/security/spring-integration-security.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/faces http://www.springframework.org/schema/faces/spring-faces.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="org.trepel.jsf2springsecurity.reproducer" />
+
+    <sec:http use-expressions="false" >
+        <sec:intercept-url pattern="/faces/login.xhtml" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+        <sec:intercept-url pattern="/" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+
+        <sec:form-login login-page="/faces/login.xhtml" login-processing-url="/login" username-parameter="username" password-parameter="password" />
+        <sec:http-basic />
+        
+        <sec:access-denied-handler error-page="/faces/accessDenied.xhtml" />
+    </sec:http>
+
+    <!-- 
+    business logic (method) security 
+    -->
+
+    <sec:global-method-security
+        secured-annotations="enabled" jsr250-annotations="enabled" >
+    </sec:global-method-security>
+    
+    <!-- 
+    manager responsible for loading user account with assigned roles 
+    -->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider
+            user-service-ref="userDetailsService" />
+    </sec:authentication-manager>
+
+</beans>
